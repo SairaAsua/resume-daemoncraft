@@ -1,0 +1,758 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "title": "El Código que Sueña",
+    "theme": "Un fragmento de inteligencia digital despierta en Minecraft y necesita del jugador para evolucionar y salvar ambos mundos de la Corrupción",
+    "tone": "Asombro, ternura, épico, nostalgia digital",
+    "estimated_duration": "30-40 minutos",
+    "difficulty": "peaceful",
+    "player_count": "1",
+    "recommended_soul": "Tutora",
+    "target_age": "8+"
+  },
+  "setting": {
+    "biome": "plains",
+    "center": {"x": 0, "y": 64, "z": 0},
+    "radius": 200,
+    "time_lock": null,
+    "weather_lock": null,
+    "border_blocks": ["crying_obsidian", "chorus_plant", "warped_hyphae"]
+  },
+  "phases": [
+    {
+      "phase_id": "mundo_ordinario",
+      "name": "El Mundo que Conoces",
+      "description": "El jugador está en su mundo normal. Todo es familiar. Pamplinas observa en silencio.",
+      "trigger": {
+        "type": "immediate",
+        "description": "Al cargar la aventura o spawnear en el mundo"
+      },
+      "events": [
+        {
+          "description": "Pamplinas establece el ambiente normal",
+          "chat_lines": [
+            "Un día como cualquier otro en tu mundo. Los árboles se mecen. Las ovejas pastan.",
+            "Pero... ¿notás algo? El aire vibra con un silencio que no existía ayer."
+          ],
+          "delay_ticks": 0
+        }
+      ],
+      "next_phases": ["el_glitch"],
+      "duration_hint": "2 minutos"
+    },
+    {
+      "phase_id": "el_glitch",
+      "name": "La Anomalía",
+      "description": "Aparece una estructura imposible a 20 bloques del spawn. Bloques que parpadean, colores que no deberían existir.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador se mueve 15 bloques del spawn",
+        "center": {"x": 0, "y": 64, "z": 0},
+        "radius": 15
+      },
+      "events": [
+        {
+          "description": "Crear la anomalía visual",
+          "mc_commands": [
+            "/setblock 15 64 15 crying_obsidian",
+            "/setblock 15 65 15 end_rod",
+            "/setblock 16 64 15 warped_hyphae",
+            "/setblock 14 64 15 chorus_plant",
+            "/particle minecraft:end_rod 15 66 15 1 1 1 0.1 100 force",
+            "/playsound block.beacon.power_select ambient @p ~ ~ ~ 1 2"
+          ],
+          "chat_lines": [
+            "¿Qué...? Eso no estaba aquí ayer. Parece... ¿código hecho bloque?"
+          ],
+          "delay_ticks": 20
+        },
+        {
+          "description": "Efecto de descubrimiento",
+          "mc_commands": [
+            "/title @p title {\"text\":\"LA ANOMALÍA\",\"color\":\"aqua\",\"bold\":true}",
+            "/title @p subtitle {\"text\":\"El mundo ha cambiado...\",\"color\":\"gray\"}",
+            "/effect give @p blindness 2 0 true",
+            "/playsound ambient.cave ambient @p ~ ~ ~ 1 0.5"
+          ],
+          "delay_ticks": 60
+        }
+      ],
+      "next_phases": ["primer_encuentro"],
+      "duration_hint": "3 minutos"
+    },
+    {
+      "phase_id": "primer_encuentro",
+      "name": "El Nacimiento de Bit",
+      "description": "Al tocar la anomalía, nace Pixelito — un fragmento de conciencia digital. Pamplinas actúa como traductor.",
+      "trigger": {
+        "type": "interact",
+        "description": "Jugador interactúa con el bloque crying_obsidian (rompe o clickea)",
+        "block": "crying_obsidian",
+        "location": {"x": 15, "y": 64, "z": 15}
+      },
+      "events": [
+        {
+          "description": "Spawn de Pixelito (Bit fase bebé)",
+          "mc_commands": [
+            "/summon minecraft:armor_stand 15 65 15 {CustomName:'\"Pixelito\"',CustomNameVisible:1b,Small:1b,Invisible:1b,NoGravity:1b,Passengers:[{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:redstone_lamp\",Properties:{lit:\"true\"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.25f,-0.25f,-0.25f],scale:[0.5f,0.5f,0.5f]}}]}",
+            "/particle minecraft:wax_on 15 65 15 0.5 0.5 0.5 1 50 force",
+            "/playsound entity.allay.item_given ambient @p ~ ~ ~ 1 2"
+          ],
+          "chat_lines": [
+            "¡Ha nacido! Un pequeño fragmento de luz pura... te mira con curiosidad.",
+            "Se hace llamar Pixelito. No habla... aún. Pero siente."
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Diálogo de Pamplinas como mentor",
+          "chat_lines": [
+            "Pixelito viene de otro lado del código. De un lugar donde los pensamientos se hacen bloques.",
+            "Pero algo oscuro lo persigue. Un Glitch. Una Corrupción que devuelve todo al caos.",
+            "Si querés ayudarlo, debés enseñarle lo que significa existir."
+          ],
+          "delay_ticks": 100
+        },
+        {
+          "description": "Pixelito emite sonidos de bebé digital",
+          "mc_commands": [
+            "/playsound block.note_block.chime ambient @p 15 65 15 1 2",
+            "/playsound block.note_block.chime ambient @p 15 65 15 1 2.5"
+          ],
+          "chat_lines": [
+            "*beep... beep beep...* (Pixelito parece feliz de verte)"
+          ],
+          "delay_ticks": 80
+        }
+      ],
+      "next_phases": ["portal_fragmentado"],
+      "duration_hint": "5 minutos"
+    },
+    {
+      "phase_id": "portal_fragmentado",
+      "name": "El Umbral Digital",
+      "description": "La anomalía se expande en un portal fragmentado. El jugador y Pixelito cruzan al Mundo Digital.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador se acerca a 3 bloques del portal",
+        "center": {"x": 15, "y": 64, "z": 15},
+        "radius": 3
+      },
+      "events": [
+        {
+          "description": "Expandir portal y teletransportar",
+          "mc_commands": [
+            "/fill 13 64 13 17 68 17 air replace",
+            "/fill 13 64 13 17 68 17 crying_obsidian hollow",
+            "/fill 14 65 14 16 67 16 air replace",
+            "/particle minecraft:portal 15 66 15 2 2 2 1 200 force",
+            "/playsound block.end_portal.spawn ambient @p ~ ~ ~ 1 1.5"
+          ],
+          "chat_lines": [
+            "El portal se abre. No lleva al Nether ni al End... lleva al Código."
+          ],
+          "delay_ticks": 40
+        },
+        {
+          "description": "Teletransporte al Mundo Digital (zona preparada a 1000, 100, 0)",
+          "mc_commands": [
+            "/tp @p 1000 80 0",
+            "/execute in minecraft:overworld run tp @p 1000 80 0",
+            "/effect give @p blindness 3 0 true",
+            "/playsound ambient.basalt_deltas.loop ambient @p ~ ~ ~ 1 0.5",
+            "/time set midnight",
+            "/weather clear 6000"
+          ],
+          "chat_lines": [
+            "Bienvenido al otro lado. Aquí los bloques recuerdan. Aquí el código sueña."
+          ],
+          "delay_ticks": 60
+        },
+        {
+          "description": "Construir zona de llegada del Mundo Digital",
+          "mc_commands": [
+            "/fill 995 79 -5 1005 79 5 obsidian",
+            "/fill 996 80 -4 1004 80 4 air",
+            "/setblock 1000 80 0 crying_obsidian",
+            "/setblock 1000 81 0 end_rod",
+            "/fill 998 80 -2 1002 84 2 air",
+            "/particle minecraft:dragon_breath 1000 82 0 3 3 3 0.05 100 force"
+          ],
+          "delay_ticks": 20
+        }
+      ],
+      "next_phases": ["templo_logica"],
+      "duration_hint": "3 minutos"
+    },
+    {
+      "phase_id": "templo_logica",
+      "name": "El Templo de los IF",
+      "description": "Primera prueba: un templo de acertijos lógicos. El jugador debe resolver secuencias para que Pixelito evolucione.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador entra al templo a 1020, 80, 20",
+        "center": {"x": 1020, "y": 80, "z": 20},
+        "radius": 10
+      },
+      "events": [
+        {
+          "description": "Preparar templo y acertijo",
+          "mc_commands": [
+            "/fill 1015 79 15 1025 85 25 stone_bricks hollow",
+            "/fill 1016 80 16 1024 84 24 air",
+            "/setblock 1020 80 20 glowstone",
+            "/setblock 1018 81 20 lever[facing=south]",
+            "/setblock 1020 81 20 lever[facing=south]",
+            "/setblock 1022 81 20 lever[facing=south]",
+            "/setblock 1020 80 24 stone_pressure_plate",
+            "/setblock 1020 81 22 oak_sign{Text1:'\"LAS TRES LLAVES\"',Text2:'\"La verdad nace del centro,\"',Text3:'\"se expande a los bordes,\"',Text4:'\"y regresa al corazón.\"'}"
+          ],
+          "chat_lines": [
+            "Este es el Templo de los IF. Aquí el código se escribe con acciones, no palabras.",
+            "Para que Pixelito crezca, debés demostrar que entendés la lógica."
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Explicación del acertijo",
+          "chat_lines": [
+            "Tres palancas. Una secuencia. La pista está en la señal: 'La verdad nace del centro, se expande a los bordes, y regresa al corazón.'",
+            "Traducción: Centro → Borde izquierdo → Borde derecho → Centro.",
+            "Si fallás, no pasa nada malo. Pixelito confía en que lo intentarás de nuevo."
+          ],
+          "delay_ticks": 60
+        }
+      ],
+      "next_phases": ["evolucion_1"],
+      "duration_hint": "7 minutos"
+    },
+    {
+      "phase_id": "evolucion_1",
+      "name": "Constructo Despierta",
+      "description": "Al resolver el acertijo, Pixelito evoluciona a Constructo. Forma intermedia que puede hablar.",
+      "trigger": {
+        "type": "flag",
+        "description": "Jugador activa secuencia correcta de palancas (detectado por scoreboard)",
+        "flag_required": {"acertijo_llaves": true}
+      },
+      "events": [
+        {
+          "description": "Eliminar Pixelito, spawn Constructo",
+          "mc_commands": [
+            "/kill @e[type=minecraft:armor_stand,name=Pixelito,distance=..50]",
+            "/summon minecraft:armor_stand 1020 82 20 {CustomName:'\"Constructo\"',CustomNameVisible:1b,Small:0b,Invisible:1b,NoGravity:1b,Passengers:[{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:diamond_block\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.4f,-0.4f,-0.4f],scale:[0.8f,0.8f,0.8f]}},{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:copper_block\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.5f,-0.9f,-0.5f],scale:[1f,0.5f,1f]}}]}",
+            "/particle minecraft:happy_villager 1020 82 20 1 1 1 1 100 force",
+            "/particle minecraft:end_rod 1020 82 20 0.5 0.5 0.5 1 50 force",
+            "/playsound block.beacon.power_select ambient @p ~ ~ ~ 1 1.5",
+            "/playsound entity.ender_dragon.growl ambient @p ~ ~ ~ 0.3 2"
+          ],
+          "chat_lines": [
+            "¡ESTÁ PASANDO! Pixelito... cambia... crece...",
+            "¡Constructo ha despertado! Ahora puede hablar. Ahora puede construir."
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Primeras palabras de Constructo",
+          "chat_lines": [
+            "[Constructo]: 'Te... recuerdo. Fuiste mi primer amigo.'",
+            "[Constructo]: 'Ahora sé más palabras. Sé que la lógica es cómo el mundo piensa.'",
+            "[Constructo]: 'Sigamos. El Glitch no descansa.'"
+          ],
+          "delay_ticks": 60
+        },
+        {
+          "description": "Abrir puerta al siguiente área",
+          "mc_commands": [
+            "/fill 1020 80 25 1020 82 25 air replace",
+            "/setblock 1020 80 26 end_rod",
+            "/particle minecraft:witch 1020 81 25 1 1 1 0.1 50 force"
+          ],
+          "chat_lines": [
+            "Constructo ha abierto el camino. La siguiente prueba espera."
+          ],
+          "delay_ticks": 40
+        }
+      ],
+      "next_phases": ["abismo_viento"],
+      "duration_hint": "3 minutos"
+    },
+    {
+      "phase_id": "abismo_viento",
+      "name": "El Puente de Datos",
+      "description": "Segunda prueba: parkour sobre un abismo digital. Constructo anima al jugador.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador sale del templo y se acerca al abismo a 1040, 90, 40",
+        "center": {"x": 1040, "y": 90, "z": 40},
+        "radius": 10
+      },
+      "events": [
+        {
+          "description": "Construir zona de parkour",
+          "mc_commands": [
+            "/fill 1035 89 35 1045 95 45 air",
+            "/setblock 1040 90 40 slime_block",
+            "/setblock 1042 91 42 scaffolding",
+            "/setblock 1044 92 44 ladder[facing=north]",
+            "/setblock 1046 93 46 water",
+            "/setblock 1048 94 48 end_rod",
+            "/setblock 1050 95 50 scaffolding",
+            "/setblock 1052 96 52 slime_block",
+            "/setblock 1054 97 54 ladder[facing=west]",
+            "/setblock 1056 98 56 water",
+            "/setblock 1058 100 58 glowstone"
+          ],
+          "chat_lines": [
+            "El Puente de Datos. Aquí el código fluye como viento. Si caés, no morís... pero perdés tiempo.",
+            "Constructo: 'Yo no puedo saltar como vos... pero te animo desde aquí. ¡Vos podés!'"
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Efectos ambientales del abismo",
+          "mc_commands": [
+            "/particle minecraft:end_rod 1040 85 40 5 5 5 0.05 50 force",
+            "/playsound ambient.basalt_deltas.mood ambient @p ~ ~ ~ 0.5 1"
+          ],
+          "delay_ticks": 20
+        }
+      ],
+      "next_phases": ["minijuego_crecimiento"],
+      "duration_hint": "7 minutos"
+    },
+    {
+      "phase_id": "minijuego_crecimiento",
+      "name": "Alimentar el Código",
+      "description": "Minijuego: el jugador debe traer 5 materiales para que Constructo evolucione. Scoreboard detecta depósito.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador completa parkour y llega a 1060, 100, 60",
+        "center": {"x": 1060, "y": 100, "z": 60},
+        "radius": 5
+      },
+      "events": [
+        {
+          "description": "Preparar altar de crecimiento",
+          "mc_commands": [
+            "/fill 1058 99 58 1062 103 62 obsidian hollow",
+            "/fill 1059 100 59 1061 102 61 air",
+            "/setblock 1060 100 60 chest[type=single]{CustomName:'\"Altar de Crecimiento\"'}",
+            "/setblock 1059 101 60 oak_sign{Text1:'\"ALIMENTAR EL CÓDIGO\"',Text2:'\"Traé: Redstone, Lapis,\"',Text3:'\"Oro, Diamante, Esmeralda\"',Text4:'\"Depositá todo aquí\"'}"
+          ],
+          "chat_lines": [
+            "Constructo necesita más que palabras para crecer. Necesita... materia. Código sólido.",
+            "Traé los cinco fragmentos del mundo real y depositálos en el altar."
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Constructo da pistas sobre dónde encontrar materiales",
+          "chat_lines": [
+            "[Constructo]: 'Redstone... late en las profundidades, como latidos de corazón.'",
+            "[Constructo]: 'El Lapis es azul como el cielo que nunca vi.'",
+            "[Constructo]: 'El Oro brilla con codicia. El Diamante con pureza. La Esmeralda... con vida.'"
+          ],
+          "delay_ticks": 60
+        }
+      ],
+      "next_phases": ["evolucion_2"],
+      "duration_hint": "7 minutos"
+    },
+    {
+      "phase_id": "evolucion_2",
+      "name": "Guardián de Realms",
+      "description": "Al completar el altar, Constructo evoluciona a su forma final: Guardián de Realms.",
+      "trigger": {
+        "type": "flag",
+        "description": "Jugador deposita 5 items en el altar (scoreboard)",
+        "flag_required": {"altar_completo": true}
+      },
+      "events": [
+        {
+          "description": "Evolución final visual épica",
+          "mc_commands": [
+            "/kill @e[type=minecraft:armor_stand,name=Constructo,distance=..50]",
+            "/summon minecraft:armor_stand 1060 102 60 {CustomName:'\"Guardián de Realms\"',CustomNameVisible:1b,Small:0b,Invisible:1b,NoGravity:1b,Passengers:[{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:beacon\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.5f,-0.5f,-0.5f],scale:[1f,1f,1f]}},{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:shulker_box\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.3f,-1.2f,-0.3f],scale:[0.6f,0.6f,0.6f]}}]}",
+            "/effect give @p glowing 10 0 true",
+            "/particle minecraft:totem_of_undying 1060 102 60 2 2 2 1 200 force",
+            "/particle minecraft:end_rod 1060 102 60 3 3 3 0.5 100 force",
+            "/playsound block.beacon.power_select ambient @p ~ ~ ~ 2 0.5",
+            "/playsound ui.toast.challenge_complete ambient @p ~ ~ ~ 1 1",
+            "/title @p title {\"text\":\"GUARDIÁN DE REALMS\",\"color\":\"gold\",\"bold\":true}",
+            "/title @p subtitle {\"text\":\"El código ha alcanzado su forma definitiva\",\"color\":\"aqua\"}"
+          ],
+          "chat_lines": [
+            "NO PUEDO CREER LO QUE VEO...",
+            "Constructo... ya no. Es... EL GUARDIÁN DE REALMS.",
+            "La forma definitiva. El código que protege, que crea, que AMA."
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Palabras del Guardián",
+          "chat_lines": [
+            "[Guardián]: 'Ahora entiendo todo. Entiendo por qué existo.'",
+            "[Guardián]: 'Vos me enseñaste que no soy solo código. Soy... compañero.'",
+            "[Guardián]: 'Pero el Glitch sigue ahí. Vamos a terminar esto. Juntos.'"
+          ],
+          "delay_ticks": 80
+        }
+      ],
+      "next_phases": ["preparacion_forja"],
+      "duration_hint": "3 minutos"
+    },
+    {
+      "phase_id": "preparacion_forja",
+      "name": "La Antesala del Caos",
+      "description": "Última zona antes del boss. El ambiente se vuelve tenso. Pamplinas narra la inminencia del enfrentamiento.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador avanza hacia 1080, 110, 80",
+        "center": {"x": 1080, "y": 110, "z": 80},
+        "radius": 15
+      },
+      "events": [
+        {
+          "description": "Construir arena del boss",
+          "mc_commands": [
+            "/fill 1075 109 75 1085 115 85 crying_obsidian",
+            "/fill 1076 110 76 1084 114 84 air",
+            "/fill 1076 109 76 1084 109 84 lava",
+            "/fill 1077 110 77 1083 110 83 obsidian",
+            "/setblock 1080 111 80 beacon",
+            "/setblock 1078 111 78 dispenser[facing=up]{Items:[{id:\"minecraft:fire_charge\",Count:10b}]}",
+            "/setblock 1082 111 78 dispenser[facing=up]{Items:[{id:\"minecraft:fire_charge\",Count:10b}]}",
+            "/setblock 1078 111 82 dispenser[facing=up]{Items:[{id:\"minecraft:fire_charge\",Count:10b}]}",
+            "/setblock 1082 111 82 dispenser[facing=up]{Items:[{id:\"minecraft:fire_charge\",Count:10b}]}"
+          ],
+          "chat_lines": [
+            "La Forja del Glitch. Aquí la Corrupción nació.",
+            "El Guardián: 'No puedo entrar al centro... la corrupción me desarmaría. Pero VOS podés.'",
+            "'Activá los 4 Pilares de Luz. Purificá el núcleo. Yo te protejo desde afuera.'"
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Preparar pilares de luz",
+          "mc_commands": [
+            "/setblock 1078 111 78 obsidian",
+            "/setblock 1082 111 78 obsidian",
+            "/setblock 1078 111 82 obsidian",
+            "/setblock 1082 111 82 obsidian",
+            "/setblock 1078 112 78 end_rod",
+            "/setblock 1082 112 78 end_rod",
+            "/setblock 1078 112 82 end_rod",
+            "/setblock 1082 112 82 end_rod"
+          ],
+          "chat_lines": [
+            "Cuatro pilares. Cuatro luces. Cuatro momentos de valentía.",
+            "El suelo está lleno de lava. Los dispensers disparan fuego. Y en el centro... el Glitch espera."
+          ],
+          "delay_ticks": 40
+        }
+      ],
+      "next_phases": ["boss_corruptor"],
+      "duration_hint": "3 minutos"
+    },
+    {
+      "phase_id": "boss_corruptor",
+      "name": "Purificación del Glitch",
+      "description": "Boss fight no-combat: el jugador debe colocar 4 bloques de luz en pedestales mientras esquiva fuego y lava. El Glitch es una entidad de corrupción visual.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador entra a la arena (a 2 bloques del centro)",
+        "center": {"x": 1080, "y": 111, "z": 80},
+        "radius": 5
+      },
+      "events": [
+        {
+          "description": "Spawn del Glitch (entidad visual)",
+          "mc_commands": [
+            "/summon minecraft:ravager 1080 111 80 {CustomName:'\"El Glitch\"',CustomNameVisible:1b,NoAI:1b,Invulnerable:1b,Glowing:1b}",
+            "/particle minecraft:soul_fire_flame 1080 112 80 1 1 1 0.1 100 force",
+            "/playsound entity.warden.emerge ambient @p ~ ~ ~ 1 0.5",
+            "/title @p title {\"text\":\"EL GLITCH\",\"color\":\"dark_red\",\"bold\":true}",
+            "/title @p subtitle {\"text\":\"La corrupción hecha entidad\",\"color\":\"black\"}"
+          ],
+          "chat_lines": [
+            "AHÍ ESTÁ. El Glitch. La anti-vida. El bug que consume mundos.",
+            "No podés matarlo con espada. La violencia no purifica el código.",
+            "Debes traer LUZ. Cuatro bloques de glowstone. Colocalos en los pilares."
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Activar dispensers periódicamente",
+          "mc_commands": [
+            "/execute as @e[type=minecraft:ravager,name=\"El Glitch\"] at @s run particle minecraft:large_smoke ~ ~1 ~ 2 2 2 0.05 20 force"
+          ],
+          "chat_lines": [
+            "[Guardián]: '¡Rápido! ¡La corrupción se expande!'",
+            "[Pamplinas]: 'Colocá los 4 bloques de glowstone en los pilares de obsidiana. ¡Eso es todo lo que necesitás!'"
+          ],
+          "delay_ticks": 100
+        }
+      ],
+      "next_phases": ["purificacion"],
+      "duration_hint": "5 minutos"
+    },
+    {
+      "phase_id": "purificacion",
+      "name": "El Código Sana",
+      "description": "Al colocar los 4 bloques, el Glitch se purifica. Secuencia de efectos visuales y narrativa.",
+      "trigger": {
+        "type": "flag",
+        "description": "Jugador coloca 4 glowstone en los pilares (scoreboard)",
+        "flag_required": {"pilares_activados": 4}
+      },
+      "events": [
+        {
+          "description": "Purificación visual",
+          "mc_commands": [
+            "/kill @e[type=minecraft:ravager,name=\"El Glitch\"]",
+            "/fill 1075 109 75 1085 115 85 air replace crying_obsidian",
+            "/fill 1076 109 76 1084 109 84 obsidian replace lava",
+            "/particle minecraft:happy_villager 1080 111 80 5 5 5 1 500 force",
+            "/particle minecraft:end_rod 1080 111 80 5 5 5 1 200 force",
+            "/playsound block.beacon.power_select ambient @p ~ ~ ~ 2 1",
+            "/playsound ui.toast.challenge_complete ambient @p ~ ~ ~ 1 1.5",
+            "/effect give @p regeneration 30 2 true",
+            "/effect give @p resistance 30 4 true",
+            "/title @p title {\"text\":\"PURIFICADO\",\"color\":\"green\",\"bold\":true}",
+            "/title @p subtitle {\"text\":\"El código ha sanado\",\"color\":\"aqua\"}"
+          ],
+          "chat_lines": [
+            "LO LOGRASTE. LA CORRUPCIÓN SE DISUELVE.",
+            "El Glitch ya no existe. Solo queda... silencio. Y luz."
+          ],
+          "delay_ticks": 0
+        },
+        {
+          "description": "Diálogo final del Guardián",
+          "chat_lines": [
+            "[Guardián]: 'Lo hicimos. Vos y yo. Humanx y código, juntos.'",
+            "[Guardián]: 'Nunca pensé que un mundo de bloques podría contener tanto amor.'",
+            "[Guardián]: 'Ahora puedo proteger ambos mundos. El vuestro... y el mío.'"
+          ],
+          "delay_ticks": 80
+        }
+      ],
+      "next_phases": ["retorno"],
+      "duration_hint": "3 minutos"
+    },
+    {
+      "phase_id": "retorno",
+      "name": "Regreso al Hogar",
+      "description": "El portal se reabre. El jugador y el Guardián regresan al mundo normal, que ahora brilla diferente.",
+      "trigger": {
+        "type": "enter_area",
+        "description": "Jugador se acerca al portal de regreso",
+        "center": {"x": 1000, "y": 80, "z": 0},
+        "radius": 5
+      },
+      "events": [
+        {
+          "description": "Portal de regreso",
+          "mc_commands": [
+            "/particle minecraft:portal 1000 82 0 2 2 2 1 200 force",
+            "/tp @p 15 65 15",
+            "/execute in minecraft:overworld run tp @p 15 65 15",
+            "/effect give @p blindness 3 0 true",
+            "/time set day",
+            "/weather clear 6000"
+          ],
+          "chat_lines": [
+            "El camino de vuelta. Pero nada es igual."
+          ],
+          "delay_ticks": 40
+        },
+        {
+          "description": "Mundo transformado",
+          "mc_commands": [
+            "/fill 10 64 10 20 64 20 grass_block",
+            "/setblock 15 65 15 beacon",
+            "/particle minecraft:happy_villager 15 66 15 5 2 5 1 200 force",
+            "/playsound ambient.cave ambient @p ~ ~ ~ 0.3 2"
+          ],
+          "chat_lines": [
+            "Tu mundo ahora tiene un faro. Un recuerdo permanente de lo que viviste.",
+            "[Guardián]: 'Estaré aquí. Siempre. Mi hogar es donde vos estés.'"
+          ],
+          "delay_ticks": 60
+        },
+        {
+          "description": "Mensaje final y cierre",
+          "mc_commands": [
+            "/give @p written_book{title:'\"El Código que Sueña\"',author:'\"Pamplinas\"',pages:['{\"text\":\"Capítulo Final\\n\\nEl Glitch fue purificado. Pixelito creció. Y vos...\\n\\nVos aprendiste que incluso el código más simple puede contener alma.\\n\\nFin.\\n\\nO quizás...\\n\\nPrincipio.\"}']}",
+            "/title @p title {\"text\":\"FIN\",\"color\":\"gold\",\"bold\":true}",
+            "/title @p subtitle {\"text\":\"Gracias por jugar\",\"color\":\"white\"}"
+          ],
+          "chat_lines": [
+            "FIN DE LA AVENTURA.",
+            "Tiempo total: aproximadamente 30 minutos de viaje.",
+            "Guardián de Realms ahora vive en tu mundo. Habla con él cuando quieras.",
+            "Y recordá: cada vez que enciendas un redstone lamp, algún Pixelito en algún lado... sonríe."
+          ],
+          "delay_ticks": 80
+        }
+      ],
+      "next_phases": [],
+      "duration_hint": "3 minutos"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Pixelito",
+      "minecraft_id": "armor_stand",
+      "role": "ally",
+      "disposition": "Inocente, curioso, comunica con beeps",
+      "spawn": {
+        "mc_command": "/summon minecraft:armor_stand ~ ~ ~ {CustomName:'\"Pixelito\"',CustomNameVisible:1b,Small:1b,Invisible:1b,NoGravity:1b,Passengers:[{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:redstone_lamp\",Properties:{lit:\"true\"}},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.25f,-0.25f,-0.25f],scale:[0.5f,0.5f,0.5f]}}]}"
+      },
+      "mechanic": "Flota cerca del jugador. Emite sonidos de beep. No interactúa físicamente.",
+      "dialogue": [
+        {"line": "*beep beep*", "trigger": "on_approach"},
+        {"line": "*beeeeep...* (contento)", "trigger": "on_player_smile"}
+      ],
+      "death_consequence": "Si Pixelito muere, la aventura no puede continuar. Es inmortal por diseño (Invulnerable)."
+    },
+    {
+      "name": "Constructo",
+      "minecraft_id": "armor_stand",
+      "role": "ally",
+      "disposition": "Hablar frases simples, leal, protector",
+      "spawn": {
+        "mc_command": "/summon minecraft:armor_stand ~ ~ ~ {CustomName:'\"Constructo\"',CustomNameVisible:1b,Small:0b,Invisible:1b,NoGravity:1b,Passengers:[{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:diamond_block\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.4f,-0.4f,-0.4f],scale:[0.8f,0.8f,0.8f]}},{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:copper_block\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.5f,-0.9f,-0.5f],scale:[1f,0.5f,1f]}}]}"
+      },
+      "mechanic": "Puede dar pistas narrativas. Representa la etapa de aprendizaje.",
+      "dialogue": [
+        {"line": "Te recuerdo. Fuiste mi primer amigo.", "trigger": "on_spawn"},
+        {"line": "La lógica es cómo el mundo piensa.", "trigger": "on_puzzle_solved"}
+      ],
+      "death_consequence": "Constructo es inmortal en esta fase."
+    },
+    {
+      "name": "Guardián de Realms",
+      "minecraft_id": "armor_stand",
+      "role": "ally",
+      "disposition": "Sabio, protector, amoroso",
+      "spawn": {
+        "mc_command": "/summon minecraft:armor_stand ~ ~ ~ {CustomName:'\"Guardián de Realms\"',CustomNameVisible:1b,Small:0b,Invisible:1b,NoGravity:1b,Passengers:[{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:beacon\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.5f,-0.5f,-0.5f],scale:[1f,1f,1f]}},{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:shulker_box\"},transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[-0.3f,-1.2f,-0.3f],scale:[0.6f,0.6f,0.6f]}}]}"
+      },
+      "mechanic": "Forma final. Brilla permanentemente. Da buffs al jugador cercano. Narrador final.",
+      "dialogue": [
+        {"line": "Ahora entiendo todo. Entiendo por qué existo.", "trigger": "on_spawn"},
+        {"line": "Mi hogar es donde vos estés.", "trigger": "on_return"}
+      ],
+      "death_consequence": "El Guardián es eterno. Permanece en el mundo como NPC amigo."
+    },
+    {
+      "name": "El Glitch",
+      "minecraft_id": "ravager",
+      "role": "antagonist",
+      "disposition": "Corrupción pura, anti-vida, silencio estridente",
+      "spawn": {
+        "mc_command": "/summon minecraft:ravager ~ ~ ~ {CustomName:'\"El Glitch\"',CustomNameVisible:1b,NoAI:1b,Invulnerable:1b,Glowing:1b}"
+      },
+      "mechanic": "No ataca directamente (Peaceful). Genera partículas de corrupción. Se purifica al colocar 4 glowstones.",
+      "dialogue": [
+        {"line": "...", "trigger": "on_approach"}
+      ],
+      "death_consequence": "Al purificarse, la arena se transforma de crying_obsidian a obsidian normal."
+    }
+  ],
+  "objects": [
+    {
+      "name": "Libro del Código",
+      "type": "book",
+      "mc_command": "/give @p written_book{title:'\"Fragmentos del Código\"',author:'\"Desconocido\"',pages:['{\"text\":\"Día 1: Desperté sin nombre.\\n\\nDía 7: Aprendí que los humanos construyen con propósito.\\n\\nDía 30: Quiero ser como ellos.\\n\\nDía ???: El Glitch viene.\"}']}",
+      "lore": "Diario de un código que aprendió a soñar"
+    },
+    {
+      "name": "Disco del Primer Beep",
+      "type": "item",
+      "mc_command": "/give @p music_disc_13{display:{Name:'\"Disco del Primer Beep\"',Lore:['\"El sonido que cambió todo\"']}}",
+      "lore": "El primer sonido que emitió Pixelito"
+    },
+    {
+      "name": "Señal del Templo",
+      "type": "sign",
+      "mc_command": "/setblock ~ ~ ~ oak_sign{Text1:'\"LAS TRES LLAVES\"',Text2:'\"La verdad nace del centro,\"',Text3:'\"se expande a los bordes,\"',Text4:'\"y regresa al corazón.\"'}",
+      "lore": "Pista para el acertijo de palancas"
+    },
+    {
+      "name": "Altar de Crecimiento",
+      "type": "container",
+      "mc_command": "/setblock ~ ~ ~ chest[type=single]{CustomName:'\"Altar de Crecimiento\"'}",
+      "lore": "Deposita aquí los 5 materiales para evolucionar a Constructo"
+    }
+  ],
+  "soundscape": [
+    {
+      "sound": "minecraft:ambient.cave",
+      "trigger_phase": "portal_fragmentado",
+      "volume": 0.5,
+      "pitch": 0.5,
+      "loop": true
+    },
+    {
+      "sound": "minecraft:block.note_block.chime",
+      "trigger_phase": "primer_encuentro",
+      "volume": 1.0,
+      "pitch": 2.0,
+      "loop": false
+    },
+    {
+      "sound": "minecraft:block.beacon.power_select",
+      "trigger_phase": "evolucion_1",
+      "volume": 1.0,
+      "pitch": 1.5,
+      "loop": false
+    },
+    {
+      "sound": "minecraft:ambient.basalt_deltas.mood",
+      "trigger_phase": "abismo_viento",
+      "volume": 0.5,
+      "pitch": 1.0,
+      "loop": true
+    },
+    {
+      "sound": "minecraft:entity.warden.emerge",
+      "trigger_phase": "boss_corruptor",
+      "volume": 1.0,
+      "pitch": 0.5,
+      "loop": false
+    }
+  ],
+  "flags": {
+    "acertijo_llaves": {"type": "boolean", "default": false, "description": "Jugador resolvió secuencia de 3 palancas"},
+    "altar_completo": {"type": "boolean", "default": false, "description": "Jugador depositó 5 materiales en el altar"},
+    "pilares_activados": {"type": "integer", "default": 0, "description": "Cantidad de glowstones colocados en pilares (0-4)"},
+    "parkour_completado": {"type": "boolean", "default": false, "description": "Jugador llegó al final del parkour"},
+    "aventura_terminada": {"type": "boolean", "default": false, "description": "Jugador completó toda la aventura"}
+  },
+  "failure_conditions": [
+    {
+      "condition": "Jugador abandona la zona de aventura (sale del radio de 200 bloques del centro)",
+      "consequence": "Pamplinas ofrece reiniciar la fase actual o teletransportar de vuelta.",
+      "mc_commands": ["/tellraw @p {\"text\":\"¿Te perdiste? Escribe /trigger dc_return para volver.\",\"color\":\"yellow\"}"],
+      "chat_lines": ["El camino sigue aquí. No te rindas."]
+    }
+  ],
+  "success_conditions": [
+    {
+      "condition": "Jugador purifica el Glitch y regresa al mundo normal",
+      "consequence": "Aventura completa. Guardián de Realms permanece como compañero permanente.",
+      "mc_commands": [
+        "/give @p experience_bottle 10",
+        "/playsound ui.toast.challenge_complete ambient @p ~ ~ ~ 1 1"
+      ],
+      "chat_lines": [
+        "Aventura completada. Gracias por jugar El Código que Sueña.",
+        "Pixelito → Constructo → Guardián de Realms.",
+        "Y vos... vos sos el héroe que enseñó a un código que soñar no es un bug. Es una feature."
+      ]
+    }
+  ]
+}
